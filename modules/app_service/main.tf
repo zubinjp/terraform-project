@@ -5,6 +5,6 @@ resource "azurerm_app_service" "example" {
   app_service_plan_id = var.app_service_plan_id
 
   site_config {
-    linux_fx_version = "DOCKER|nginx"
+    windows_fx_version = ".NET|8.0"
   }
 }
