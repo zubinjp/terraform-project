@@ -1,4 +1,4 @@
-app_service_name       = "example-appservice"
-location               = "West Europe"
-resource_group_name    = "example-resources"
-app_service_plan_name  = "example-appserviceplan"
+app_service_name       = "Project3-WebApp"
+location               = "East US"
+resource_group_name    = "PROJECT3"
+app_service_plan_name  = "ASP-PROJECT3-8a65"
