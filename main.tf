@@ -7,11 +7,11 @@ resource "azurerm_app_service_plan" "example" {
   name                = var.app_service_plan_name
   location            = azurerm_resource_group.example.location
   resource_group_name = azurerm_resource_group.example.name
-  kind                = "Linux"
+  kind                = "Windows"
 
   sku {
-    tier = "Basic"
-    size = "B1"
+    tier = "Free"
+    size = "F1"
   }
 }
 
