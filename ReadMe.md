@@ -11,9 +11,3 @@ This Terraform project creates an Azure Resource Group, App Service Plan, and Ap
 - `terraform.tfvars`: Variable values.
 - `modules/app_service`: Module for the App Service.
 
-## Usage
-
-1. Initialize Terraform:
-
-   ```sh
-   terraform init
