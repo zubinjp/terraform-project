@@ -1,3 +1,7 @@
+provider "azurerm" {
+  features {}
+}
+
 resource "azurerm_resource_group" "example" {
   name     = var.resource_group_name
   location = var.location
@@ -20,5 +24,4 @@ module "app_service" {
   resource_group_name = azurerm_resource_group.example.name
   location            = azurerm_resource_group.example.location
   app_service_name    = var.app_service_name
-  app_service_plan_id = var.app_service_plan_id
 }
