@@ -3,7 +3,7 @@ resource "azurerm_resource_group" "example" {
   location = var.location
 }
 
-resource "azurerm_service_plan" "example" {
+resource "azurerm_app_service_plan" "example" {
   name                = var.app_service_plan_name
   location            = azurerm_resource_group.example.location
   resource_group_name = azurerm_resource_group.example.name
@@ -16,11 +16,9 @@ resource "azurerm_service_plan" "example" {
 }
 
 module "app_service" {
-  source = "./modules/app_service"
-
- resource_group_name = azurerm_resource_group.example.name
+  source              = "./modules/app_service"
+  resource_group_name = azurerm_resource_group.example.name
   location            = azurerm_resource_group.example.location
   app_service_name    = var.app_service_name
-  app_service_plan_id = azurerm_service_plan.example.id
+  app_service_plan_id = var.app_service_plan_id
 }
-
