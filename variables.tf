@@ -21,3 +21,8 @@ variable "client_secret" {
 variable "subscription_id" {
   description = "The Azure subscription ID."
 }
+
+variable "tenant_id" {
+  description = "The Azure tenant ID."
+}
+
