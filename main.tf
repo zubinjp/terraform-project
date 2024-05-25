@@ -9,20 +9,18 @@ resource "azurerm_resource_group" "example" {
 }
 
 resource "azurerm_app_service_plan" "example" {
-  name                = var.app_service_plan_name
+  name                = "PJT3"
   location            = azurerm_resource_group.example.location
   resource_group_name = azurerm_resource_group.example.name
-  
+  kind                = "Linux"
+  reserved            = true
+  is_xenon            = true
+
   sku {
-    tier = "Basic"
-    size = "B1"
+    tier     = "PremiumContainer"
+    size     = "PC2"  
+    capacity = 1
   }
-
-   kind        = "Linux"
-  reserved    = true 
-  is_xenon    = true  
-}
-
 module "app_service" {
   source              = "./modules/app_service"
   resource_group_name = var.resource_group_name
