@@ -9,12 +9,12 @@ resource "azurerm_resource_group" "example" {
 }
 
 resource "azurerm_app_service_plan" "function_app" {
-  name                = var.function_app_service_plan_name
+  name                = var.app_service_plan_name
   location            = var.location
   resource_group_name = azurerm_resource_group.example.name
   kind                = "Linux"
   reserved            = true
-  is_xenon            = true
+  is_xenon            = true  # Adding is_xenon attribute here
 
   sku {
     tier     = "Standard"
@@ -24,12 +24,12 @@ resource "azurerm_app_service_plan" "function_app" {
 }
 
 resource "azurerm_app_service_plan" "web_app" {
-  name                = var.web_app_service_plan_name
+  name                = var.app_service_plan_name
   location            = var.location
   resource_group_name = azurerm_resource_group.example.name
   kind                = "Linux"
   reserved            = true
-  is_xenon            = true
+  is_xenon            = true  # Adding is_xenon attribute here
 
   sku {
     tier     = "Standard"
@@ -44,8 +44,6 @@ module "app_service" {
   location                        = var.location
   app_service_name                = var.app_service_name
   app_service_plan_id             = azurerm_app_service_plan.function_app.id
-  function_app_service_plan_name  = var.function_app_service_plan_name
-  web_app_service_plan_name       = var.web_app_service_plan_name
 }
 
 output "function_app_service_plan_id" {
