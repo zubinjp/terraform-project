@@ -10,11 +10,11 @@ resource "azurerm_resource_group" "example" {
 
 resource "azurerm_app_service_plan" "example" {
   name                = var.app_service_plan_name
-  location            = "eastus"  
+  location            = "eastus"
   resource_group_name = azurerm_resource_group.example.name
   kind                = "Linux"
   reserved            = true
-  is_xenon            = true
+  is_xenon            = true  # Adding is_xenon attribute here
 
   sku {
     tier     = "Standard"
@@ -22,7 +22,6 @@ resource "azurerm_app_service_plan" "example" {
     capacity = 1
   }
 }
-
 
 module "app_service" {
   source              = "./modules/app_service"
