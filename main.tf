@@ -24,9 +24,8 @@ module "app_service" {
   resource_group_name = var.resource_group_name
   location            = var.location
   app_service_name    = var.app_service_name
-  app_service_plan_id = azurerm_app_service_plan.example.id  # Corrected resource name
-}
+  app_service_plan_id = azurerm_app_service_plan.example.id }
 
 output "service_plan_id" {
-  value = azurerm_app_service_plan.example.id  # Corrected resource name
+  value = azurerm_app_service_plan.example.id  
 }
