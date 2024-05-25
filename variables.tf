@@ -13,23 +13,3 @@ variable "app_service_name" {
 variable "app_service_plan_name" {
   description = "The name of the App Service Plan."
 }
-
-variable "client_secret" {
-  description = "The client secret for authenticating with Azure."
-}
-
-variable "subscription_id" {
-  description = "The Azure subscription ID."
-}
-
-variable "tenant_id" {
-  description = "The Azure tenant ID."
-}
-
-variable "client_id" {
-  description = "The client ID for authentication."
-  type        = string
-}
-
-
-
