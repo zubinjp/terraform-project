@@ -10,18 +10,19 @@ resource "azurerm_resource_group" "example" {
 
 resource "azurerm_app_service_plan" "example" {
   name                = var.app_service_plan_name
-  location            = "eastus"  
+  location            = "centralus"  # Change the location to a different region
   resource_group_name = azurerm_resource_group.example.name
   kind                = "Linux"
   reserved            = true
   is_xenon            = true
 
   sku {
-    tier     = "Standard"  # Change the tier to "Standard"
-    size     = "S1"        # Specify an appropriate size for the Standard tier, such as "S1"
+    tier     = "Standard"
+    size     = "S1"
     capacity = 1
   }
 }
+
 
 module "app_service" {
   source              = "./modules/app_service"
