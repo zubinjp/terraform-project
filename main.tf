@@ -18,7 +18,9 @@ resource "azurerm_app_service_plan" "example" {
     size = "B1"
   }
 
-  kind        = "Linux"  
+   kind        = "Linux"
+  reserved    = true 
+  is_xenon    = true  
 }
 
 module "app_service" {
