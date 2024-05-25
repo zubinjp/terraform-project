@@ -10,7 +10,7 @@ resource "azurerm_resource_group" "example" {
 
 resource "azurerm_app_service_plan" "example" {
   name                = var.app_service_plan_name
-  location            = "norwayeast"
+  location            = "switzerlandnorth"
   resource_group_name = azurerm_resource_group.example.name
   kind                = "Linux"
   reserved            = true
