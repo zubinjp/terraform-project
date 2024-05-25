@@ -18,17 +18,19 @@ resource "azurerm_app_service_plan" "example" {
 
   sku {
     tier     = "PremiumContainer"
-    size     = "PC2"  
+    size     = "PC2"
     capacity = 1
   }
+}
+
 module "app_service" {
   source              = "./modules/app_service"
   resource_group_name = var.resource_group_name
   location            = var.location
   app_service_name    = var.app_service_name
-  app_service_plan_id = azurerm_app_service_plan.example.id 
+  app_service_plan_id = azurerm_app_service_plan.example.id
 }
 
 output "service_plan_id" {
-  value = azurerm_app_service_plan.example.id  
+  value = azurerm_app_service_plan.example.id
 }
