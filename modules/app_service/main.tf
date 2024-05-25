@@ -1,30 +1,32 @@
-variable "resource_group_name" {
-  description = "The name of the resource group"
+provider "azurerm" {
+  features {}
 }
 
-variable "location" {
-  description = "The location of the resource group"
+resource "azurerm_resource_group" "example" {
+  name     = var.resource_group_name
+  location = var.location
 }
 
-variable "app_service_name" {
-  description = "The name of the App Service"
-}
+resource "azurerm_service_plan" "example" {
+  name                = var.app_service_plan_name
+  location            = azurerm_resource_group.example.location
+  resource_group_name = azurerm_resource_group.example.name
+  kind                = "Windows"
 
-variable "app_service_plan_id" {
-  description = "The ID of the App Service Plan"
-}
-
-resource "azurerm_app_service" "example" {
-  name                = var.app_service_name
-  location            = var.location
-  resource_group_name = var.resource_group_name
-  app_service_plan_id = var.app_service_plan_id
-
-  site_config {
-    always_on = true
+  sku {
+    tier = "Free"
+    size = "F1"
   }
+}
 
-  app_settings = {
-    "WEBSITE_RUN_FROM_PACKAGE" = "1"
-  }
+module "app_service" {
+  source              = "./modules/app_service"
+  resource_group_name = azurerm_resource_group.example.name
+  location            = azurerm_resource_group.example.location
+  app_service_name    = var.app_service_name
+  app_service_plan_id = azurerm_service_plan.example.id
+}
+
+output "service_plan_id" {
+  value = azurerm_service_plan.example.id
 }
