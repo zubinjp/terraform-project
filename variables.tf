@@ -33,3 +33,10 @@ variable "client_secret" {
   description = "The client secret for Azure authentication"
   type        = string
 }
+variable "function_app_service_plan_name" {
+  description = "The name of the function app service plan."
+}
+
+variable "web_app_service_plan_name" {
+  description = "The name of the web app service plan."
+}
