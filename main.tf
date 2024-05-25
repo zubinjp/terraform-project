@@ -19,6 +19,7 @@ resource "azurerm_app_service_plan" "example" {
   }
 
   kind        = "Linux"  
+reserved    = true
 }
 
 module "app_service" {
