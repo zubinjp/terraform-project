@@ -39,12 +39,12 @@ resource "azurerm_app_service_plan" "web_app" {
 }
 
 module "app_service" {
-  source              = "./modules/app_service"
-  resource_group_name = var.resource_group_name
-  location            = var.location
-  app_service_name    = var.app_service_name
-  function_app_service_plan_id = azurerm_app_service_plan.function_app.id
-  web_app_service_plan_id      = azurerm_app_service_plan.web_app.id
+  source                          = "./modules/app_service"
+  resource_group_name             = var.resource_group_name
+  location                        = var.location
+  app_service_name                = var.app_service_name
+  function_app_service_plan_id    = azurerm_app_service_plan.function_app.id
+  web_app_service_plan_id         = azurerm_app_service_plan.web_app.id
 }
 
 output "function_app_service_plan_id" {
