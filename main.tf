@@ -14,7 +14,7 @@ resource "azurerm_app_service_plan" "function_app" {
   resource_group_name = azurerm_resource_group.example.name
   kind                = "Linux"
   reserved            = true
-  is_xenon            = true  # Adding is_xenon attribute here
+  is_xenon            = true  
 
   sku {
     tier     = "Standard"
@@ -29,7 +29,7 @@ resource "azurerm_app_service_plan" "web_app" {
   resource_group_name = azurerm_resource_group.example.name
   kind                = "Linux"
   reserved            = true
-  is_xenon            = true  # Adding is_xenon attribute here
+  is_xenon            = true 
 
   sku {
     tier     = "Standard"
