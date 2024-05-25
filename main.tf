@@ -11,12 +11,11 @@ resource "azurerm_service_plan" "example" {
   name                = var.app_service_plan_name
   location            = azurerm_resource_group.example.location
   resource_group_name = azurerm_resource_group.example.name
-  kind                = "Windows"
-os_type             = "Windows"
+  kind                = "Windows"  # Or "Linux", depending on your requirements
+  sku_name            = "F1"       # Specify the appropriate SKU name here
 
-  sku {
-    tier = "Free"
-    size = "F1"
+  os_profile {
+    os_type = "Windows"  # Specify the appropriate OS type here
   }
 }
 
