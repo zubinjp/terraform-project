@@ -17,6 +17,20 @@ resource "azurerm_app_service_plan" "example" {
     tier = "Free"
     size = "F1"
   }
+
+  // Set the runtime_version to target 32-bit environment
+  kind            = "Windows"
+  reserved        = true
+  per_site_scaling = false
+  sku {
+    tier = "Free"
+    size = "F1"
+  }
+  site_config {
+    always_on                = true
+    dotnet_framework_version = "v4.0"
+    windows_fx_version       = "WINDOWS|10.0"
+  }
 }
 
 module "app_service" {
