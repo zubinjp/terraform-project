@@ -21,10 +21,10 @@ resource "azurerm_app_service_plan" "example" {
 
 module "app_service" {
   source              = "./modules/app_service"
-  resource_group_name = azurerm_resource_group.example.name
-  location            = azurerm_resource_group.example.location
+  resource_group_name = var.resource_group_name
+  location            = var.location
   app_service_name    = var.app_service_name
-  app_service_plan_id = azurerm_service_plan.example.id
+  app_service_plan_id = var.app_service_plan_id
 }
 
 output "service_plan_id" {
