@@ -13,3 +13,8 @@ variable "app_service_name" {
 variable "app_service_plan_name" {
   description = "The name of the App Service Plan."
 }
+
+variable "app_service_plan_id" {
+  description = "The ID of the Azure App Service Plan."
+  type        = string
+}
