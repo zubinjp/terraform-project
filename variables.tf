@@ -23,3 +23,13 @@ variable "tenant_id" {
   description = "The tenant ID"
   type        = string
 }
+
+variable "client_id" {
+  description = "The client ID for Azure authentication"
+  type        = string
+}
+
+variable "client_secret" {
+  description = "The client secret for Azure authentication"
+  type        = string
+}
