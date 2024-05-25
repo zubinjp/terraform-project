@@ -17,6 +17,8 @@ resource "azurerm_app_service_plan" "example" {
     tier = "Free"
     size = "F1"
   }
+
+  kind        = "Linux"  
 }
 
 module "app_service" {
