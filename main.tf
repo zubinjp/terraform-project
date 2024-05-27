@@ -1,6 +1,5 @@
 provider "azurerm" {
   features {}
-  skip_provider_registration = true
 }
 
 resource "azurerm_resource_group" "example" {
@@ -8,48 +7,83 @@ resource "azurerm_resource_group" "example" {
   location = var.location
 }
 
-resource "azurerm_app_service_plan" "function_app" {
-  name                = var.app_service_plan_name
-  location            = var.location
+resource "azurerm_virtual_network" "example" {
+  name                = "example-vnet"
+  address_space       = ["10.0.0.0/16"]
+  location            = azurerm_resource_group.example.location
   resource_group_name = azurerm_resource_group.example.name
-  kind                = "Linux"
-  reserved            = true
-  is_xenon            = true  # Adding is_xenon attribute here
+}
 
-  sku {
-    tier     = "Standard"
-    size     = "S1"
-    capacity = 1
+resource "azurerm_subnet" "example" {
+  name                 = "example-subnet"
+  resource_group_name  = azurerm_resource_group.example.name
+  virtual_network_name = azurerm_virtual_network.example.name
+  address_prefixes     = ["10.0.2.0/24"]
+}
+
+resource "azurerm_network_interface" "example" {
+  name                = "example-nic"
+  location            = azurerm_resource_group.example.location
+  resource_group_name = azurerm_resource_group.example.name
+
+  ip_configuration {
+    name                          = "internal"
+    subnet_id                     = azurerm_subnet.example.id
+    private_ip_address_allocation = "Dynamic"
   }
 }
 
-resource "azurerm_app_service_plan" "web_app" {
-  name                = var.app_service_plan_name
-  location            = var.location
+resource "azurerm_network_security_group" "example" {
+  name                = "example-nsg"
+  location            = azurerm_resource_group.example.location
   resource_group_name = azurerm_resource_group.example.name
-  kind                = "Linux"
-  reserved            = true
-  is_xenon            = true  # Adding is_xenon attribute here
 
-  sku {
-    tier     = "Standard"
-    size     = "S1"
-    capacity = 1
+  security_rule {
+    name                       = "SSH"
+    priority                   = 1001
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "22"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
   }
 }
 
-module "app_service" {
-  source                          = "./modules/app_service"
-  resource_group_name             = var.resource_group_name
-  location                        = var.location
-  app_service_name                = var.app_service_name
-  app_service_plan_id             = azurerm_app_service_plan.function_app.id
+resource "azurerm_network_interface_security_group_association" "example" {
+  network_interface_id      = azurerm_network_interface.example.id
+  network_security_group_id = azurerm_network_security_group.example.id
 }
 
-output "function_app_service_plan_id" {
-  value = azurerm_app_service_plan.function_app.id
-}
+resource "azurerm_virtual_machine" "example" {
+  name                  = "example-machine"
+  location              = azurerm_resource_group.example.location
+  resource_group_name   = azurerm_resource_group.example.name
+  network_interface_ids = [azurerm_network_interface.example.id]
+  vm_size               = "Standard_DS1_v2"
 
-output "web_app_service_plan_id" {
-  value = azurerm_app_service_plan.web_app.id
+  storage_os_disk {
+    name              = "example-os-disk"
+    caching           = "ReadWrite"
+    create_option     = "FromImage"
+    managed_disk_type = "Standard_LRS"
+  }
+
+  storage_image_reference {
+    publisher = "Canonical"
+    offer     = "UbuntuServer"
+    sku       = "18.04-LTS"
+    version   = "latest"
+  }
+
+  os_profile {
+    computer_name  = "hostname"
+    admin_username = "adminuser"
+    admin_password = "Password1234!"
+  }
+
+  os_profile_linux_config {
+    disable_password_authentication = false
+  }
 }
