@@ -6,14 +6,6 @@ variable "location" {
   description = "The location/region where the resources will be provisioned."
 }
 
-variable "app_service_name" {
-  description = "The name of the App Service."
-}
-
-variable "app_service_plan_name" {
-  description = "The name of the App Service Plan."
-}
-
 variable "subscription_id" {
   description = "The subscription ID"
   type        = string
@@ -32,11 +24,4 @@ variable "client_id" {
 variable "client_secret" {
   description = "The client secret for Azure authentication"
   type        = string
-}
-variable "function_app_service_plan_name" {
-  description = "The name of the function app service plan."
-}
-
-variable "web_app_service_plan_name" {
-  description = "The name of the web app service plan."
 }
